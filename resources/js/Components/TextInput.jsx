@@ -1,25 +1,42 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef, useState } from "react";
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
-    const input = ref ? ref : useRef();
+import { Eye as IconEye } from "@/Components/Icons/Eye";
+import { EyeSlash as IconEyeSlash } from "@/Components/Icons/EyeSlash";
 
-    useEffect(() => {
-        if (isFocused) {
-            input.current.focus();
+export default forwardRef(function TextInput(
+  { type = "text", className = "", isFocused = false, ...props },
+  ref
+) {
+  const input = ref ? ref : useRef();
+  const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (isFocused) {
+      input.current.focus();
+    }
+  }, []);
+
+  return (
+    <div className="flex flex-col items-start relative justify-center">
+      <input
+        {...props}
+        type={showPassword ? "text" : type}
+        className={
+          "border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm " +
+          className
         }
-    }, []);
+        ref={input}
+      />
 
-    return (
-        <div className="flex flex-col items-start">
-            <input
-                {...props}
-                type={type}
-                className={
-                    'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm ' +
-                    className
-                }
-                ref={input}
-            />
-        </div>
-    );
+      {type === "password" ? (
+        <button
+          type="button"
+          className="absolute right-4"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <IconEyeSlash /> : <IconEye />}
+        </button>
+      ) : null}
+    </div>
+  );
 });
