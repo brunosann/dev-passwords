@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Transition } from "@headlessui/react";
 import { Link } from "@inertiajs/react";
 import { createContext, Fragment, useContext, useState } from "react";
@@ -23,16 +25,10 @@ const Trigger = ({ children }) => {
 
   return (
     <>
-      <button type="button" onClick={toggleOpen}>
-        {children}
-      </button>
+      <div onClick={toggleOpen}>{children}</div>
 
       {open && (
-        <button
-          type="button"
-          className="fixed inset-0 z-40 cursor-default"
-          onClick={() => setOpen(false)}
-        />
+        <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
       )}
     </>
   );
@@ -72,10 +68,8 @@ const Content = ({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <button
-          id="rato"
-          type="button"
-          className={`absolute z-50 mt-2 rounded-md shadow-lg cursor-default ${alignmentClasses} ${widthClasses}`}
+        <div
+          className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
           onClick={() => setOpen(false)}
         >
           <div
@@ -85,7 +79,7 @@ const Content = ({
           >
             {children}
           </div>
-        </button>
+        </div>
       </Transition>
     </>
   );
