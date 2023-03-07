@@ -1,5 +1,7 @@
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+
+import { Password as FormPassword } from "@/Components/Forms/Password";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Dashboard(props) {
   return (
@@ -21,6 +23,8 @@ export default function Dashboard(props) {
           </div>
         </div>
       </div>
+
+      <FormPassword />
     </AuthenticatedLayout>
   );
 }

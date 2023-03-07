@@ -1,10 +1,12 @@
+import { Head, Link, useForm } from "@inertiajs/react";
 import { useEffect } from "react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import route from "ziggy-js";
+
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function Register() {
   const { data, setData, post, processing, errors, reset } = useForm({

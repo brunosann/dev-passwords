@@ -1,11 +1,13 @@
+import { Head, Link, useForm } from "@inertiajs/react";
 import { useEffect } from "react";
+import route from "ziggy-js";
+
 import Checkbox from "@/Components/Checkbox";
-import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/react";
+import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function Login({ status, canResetPassword }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -80,8 +82,9 @@ export default function Login({ status, canResetPassword }) {
         </div>
 
         <div className="block mt-4">
-          <label className="flex items-center">
+          <label htmlFor="remember" className="flex items-center">
             <Checkbox
+              id="remember"
               name="remember"
               value={data.remember}
               onChange={handleOnChange}

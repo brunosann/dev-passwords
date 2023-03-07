@@ -7,6 +7,7 @@ export default forwardRef(function TextInput(
   { type = "text", className = "", isFocused = false, ...props },
   ref
 ) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const input = ref ? ref : useRef();
   const [showPassword, setShowPassword] = useState(false);
 
