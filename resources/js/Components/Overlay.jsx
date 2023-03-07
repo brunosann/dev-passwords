@@ -66,7 +66,7 @@ export default function Overlay({ title, open, setOpen, children }) {
                   </Transition.Child>
                   <div className="flex h-full flex-col overflow-y-auto bg-white py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
+                      <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">
                         {title}
                       </Dialog.Title>
                     </div>
