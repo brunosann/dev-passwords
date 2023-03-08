@@ -34,8 +34,12 @@ export const Password = () => {
 
   const submit = (e) => {
     e.preventDefault();
-
-    post(route(""));
+    try {
+      post(route("passwords.store"));
+      setOpenOverlay(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -94,6 +98,7 @@ export const Password = () => {
               placeholder="********"
               type="password"
               required
+              autoComplete="off"
             />
 
             <InputError message={errors.password} className="mt-2" />

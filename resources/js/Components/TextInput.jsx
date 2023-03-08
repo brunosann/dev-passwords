@@ -35,7 +35,11 @@ export default forwardRef(function TextInput(
           className="absolute right-4"
           onClick={() => setShowPassword(!showPassword)}
         >
-          {showPassword ? <IconEyeSlash /> : <IconEye />}
+          {showPassword ? (
+            <IconEyeSlash className="w-6 h-6" />
+          ) : (
+            <IconEye className="w-6 h-6" />
+          )}
         </button>
       ) : null}
     </div>

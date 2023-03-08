@@ -70,7 +70,13 @@ export const CustomFields = ({ customFields, setData, errors }) => {
             </button>
           </div>
 
-          <InputError message={errors.custom_fields} className="mt-2" />
+          <InputError
+            message={
+              errors[`custom_fields.${index}.name`] ||
+              errors[`custom_fields.${index}.value`]
+            }
+            className="mt-2"
+          />
         </div>
       ))}
     </div>
