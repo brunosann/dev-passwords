@@ -35,8 +35,9 @@ export const Password = () => {
   const submit = (e) => {
     e.preventDefault();
     try {
-      post(route("passwords.store"));
-      setOpenOverlay(false);
+      post(route("passwords.store"), {
+        onSuccess: () => setOpenOverlay(false),
+      });
     } catch (error) {
       console.error(error);
     }
