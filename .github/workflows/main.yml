@@ -1,0 +1,39 @@
+name: 🚀 Deploy website on push
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v1
+
+      - name: Deploy para meu hosting
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO"
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          TARGET: ${{ secrets.REMOTE_TARGET }}
+
+      - name: Instalando dependencias
+        run: npm install
+
+      - name: Compilando assets
+        run: npm run build
+
+      - name: Copiando a pasta build para a hospedagem
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: ./public/build
+          remote: ./public_html/senhas/public/build
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.REMOTE_PORT }}
