@@ -1,15 +1,11 @@
 import { Head, Link, router } from "@inertiajs/react";
+import { PropTypes } from "prop-types";
 import { useState } from "react";
 import route from "ziggy-js";
 
 import { Password as FormPassword } from "@/Components/Forms/Password";
-import { ArrowLongLeft } from "@/Components/Icons/ArrowLongLeft";
-import { ArrowLongRight } from "@/Components/Icons/ArrowLongRight";
-import { Eye } from "@/Components/Icons/Eye";
-import { LockClosed } from "@/Components/Icons/LockClosed";
 import { MagnifyingGlass } from "@/Components/Icons/MagnifyingGlass";
-import { PencilSquare } from "@/Components/Icons/PencilSquare";
-import SecondaryButton from "@/Components/SecondaryButton";
+import { List as ListPasswords } from "@/Components/Password/List";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
 export default function Dashboard({ auth, errors, passwords }) {
@@ -128,75 +124,8 @@ export default function Dashboard({ auth, errors, passwords }) {
                   </form>
                 </div>
               </section>
-              <section className="flex flex-col gap-4">
-                {passwords.data?.map((password) => (
-                  <div
-                    key={password.id}
-                    className="flex sm:items-center sm:justify-between gap-2"
-                  >
-                    <div className="flex items-center flex-1 min-w-0">
-                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-slate-200">
-                        <LockClosed className="w-6 h-6" />
-                      </div>
-                      <div className="ml-1 sm:ml-4 flex-1 min-w-0">
-                        <p className="text-lg font-bold text-gray-800 truncate">
-                          {password.name}
-                        </p>
-                        <p className="text-gray-600 text-md">
-                          {(password.username &&
-                            password.description &&
-                            `${password.username} / ${password.description}`) ||
-                            (password.username && `${password.username}`) ||
-                            (password.description && `${password.description}`)}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-                      <SecondaryButton className="gap-1">
-                        <Eye className="w-5 h-5" />
-                        <span className="hidden sm:block">Visualizar</span>
-                      </SecondaryButton>
-                      <SecondaryButton className="gap-1">
-                        <PencilSquare className="w-5 h-5" />
-                        <span className="hidden sm:block">Editar</span>
-                      </SecondaryButton>
-                    </div>
-                  </div>
-                ))}
-              </section>
 
-              <section className="mt-6 flex items-center justify-between ">
-                <div className="text-sm text-gray-500">
-                  Página
-                  <span className="font-medium text-gray-700 ml-1">
-                    {passwords.current_page} de {passwords.last_page}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-x-2">
-                  <Link
-                    as="button"
-                    type="button"
-                    href={passwords.prev_page_url}
-                    disabled={!passwords.prev_page_url}
-                    className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 disabled:cursor-not-allowed"
-                  >
-                    <ArrowLongLeft className="w-5 h-5 rtl:-scale-x-100" />
-                    <span className="hidden sm:block">Anterior</span>
-                  </Link>
-
-                  <Link
-                    as="button"
-                    type="button"
-                    href={passwords.next_page_url}
-                    disabled={!passwords.next_page_url}
-                    className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md sm:w-auto gap-x-2 hover:bg-gray-100 disabled:cursor-not-allowed"
-                  >
-                    <span className="hidden sm:block">Próximo</span>
-                    <ArrowLongRight className="w-5 h-5 rtl:-scale-x-100" />
-                  </Link>
-                </div>
-              </section>
+              <ListPasswords passwords={passwords} />
             </div>
           </div>
         </div>
@@ -204,3 +133,15 @@ export default function Dashboard({ auth, errors, passwords }) {
     </AuthenticatedLayout>
   );
 }
+
+Dashboard.propTypes = {
+  auth: PropTypes.shape({
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      email: PropTypes.string,
+    }),
+  }),
+  errors: PropTypes.object,
+  passwords: PropTypes.object,
+};
