@@ -19,7 +19,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->string('password');
+            $table->text('password');
             $table->string('username')->nullable();
             $table->json('custom_fields')->nullable();
             $table->integer('views')->default(0);

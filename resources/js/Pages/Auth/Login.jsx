@@ -2,7 +2,6 @@ import { Head, Link, useForm } from "@inertiajs/react";
 import { useEffect } from "react";
 import route from "ziggy-js";
 
-import Checkbox from "@/Components/Checkbox";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
@@ -13,7 +12,6 @@ export default function Login({ status, canResetPassword }) {
   const { data, setData, post, processing, errors, reset } = useForm({
     email: "",
     password: "",
-    remember: "",
   });
 
   useEffect(() => {
@@ -79,18 +77,6 @@ export default function Login({ status, canResetPassword }) {
           />
 
           <InputError message={errors.password} className="mt-2" />
-        </div>
-
-        <div className="block mt-4">
-          <label htmlFor="remember" className="flex items-center">
-            <Checkbox
-              id="remember"
-              name="remember"
-              value={data.remember}
-              onChange={handleOnChange}
-            />
-            <span className="ml-2 text-sm text-gray-600">Lembrar senha</span>
-          </label>
         </div>
 
         <div className="flex items-center justify-between mt-4">
