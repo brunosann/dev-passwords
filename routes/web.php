@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [PasswordController::class, 'index'])->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/', [PasswordController::class, 'index'])->name('dashboard');
+    Route::get('passwords/{password}', [PasswordController::class, 'show'])->name('passwords.show');
     Route::post('passwords', [PasswordController::class, 'store'])->name('passwords.store');
 });
 

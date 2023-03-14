@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Resources\PasswordResource;
 use App\Models\Password;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -30,5 +31,13 @@ class PasswordService
   public function new(array $data)
   {
     Auth::user()->passwords()->create($data);
+  }
+
+  public function findOne(string $id)
+  {
+    $password = Auth::user()->passwords()->findOrFail($id);
+    $password->increment('views');
+
+    return new PasswordResource($password);
   }
 }

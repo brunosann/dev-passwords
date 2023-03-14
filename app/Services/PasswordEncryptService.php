@@ -18,7 +18,7 @@ class PasswordEncryptService
     return $encrypted;
   }
 
-  public function decrypt(string $value)
+  public function decrypt(string $value): string
   {
     $key = $this->getEncryptionKey();
     $newEncrypter = new Encrypter($key, config('app.cipher'));

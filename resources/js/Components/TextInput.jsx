@@ -32,7 +32,7 @@ export default forwardRef(function TextInput(
       {type === "password" ? (
         <button
           type="button"
-          className="absolute right-4"
+          className="absolute right-4 text-gray-700"
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? (

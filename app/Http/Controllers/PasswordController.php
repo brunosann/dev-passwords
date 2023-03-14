@@ -19,6 +19,13 @@ class PasswordController extends Controller
         return Inertia::render('Dashboard', compact('passwords'));
     }
 
+    public function show($id, PasswordService $passwordService)
+    {
+        $password = $passwordService->findOne($id);
+
+        return $password;
+    }
+
     public function store(StorePasswordRequest $request, PasswordService $passwordService)
     {
         $data = $request->validated();

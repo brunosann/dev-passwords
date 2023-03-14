@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { PropTypes } from "prop-types";
 import { Fragment } from "react";
 
 export default function Overlay({ title, open, setOpen, children }) {
@@ -83,3 +84,10 @@ export default function Overlay({ title, open, setOpen, children }) {
     </Transition.Root>
   );
 }
+
+Overlay.propTypes = {
+  title: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  children: PropTypes.element,
+};

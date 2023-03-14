@@ -1,14 +1,20 @@
 import { PropTypes } from "prop-types";
+import { useState } from "react";
 
 import { Eye } from "../Icons/Eye";
 import { LockClosed } from "../Icons/LockClosed";
 import { PencilSquare } from "../Icons/PencilSquare";
 import SecondaryButton from "../SecondaryButton";
 import { Pagination } from "./Pagination";
+import { View } from "./View";
 
 export const List = ({ passwords }) => {
+  const [id, setId] = useState(false);
+
   return (
     <>
+      <View id={id} setId={setId} />
+
       <section className="flex flex-col gap-4">
         {passwords.data?.map((password) => (
           <div
@@ -33,7 +39,10 @@ export const List = ({ passwords }) => {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-              <SecondaryButton className="gap-1">
+              <SecondaryButton
+                className="gap-1"
+                onClick={() => setId(password.id)}
+              >
                 <Eye className="w-5 h-5" />
                 <span className="hidden sm:block">Visualizar</span>
               </SecondaryButton>
@@ -45,6 +54,7 @@ export const List = ({ passwords }) => {
           </div>
         ))}
       </section>
+
       <Pagination data={passwords} />
     </>
   );
