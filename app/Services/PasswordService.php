@@ -12,7 +12,8 @@ class PasswordService
 {
   public function list(?string $order, ?string $search): LengthAwarePaginator
   {
-    $passwords = Password::select('id', 'name', 'username', 'description')
+    $passwords = Auth::user()->passwords()
+      ->select('id', 'name', 'username', 'description')
       ->orderByDesc('views')
       ->when($order && $order === 'recent', function (Builder $query) {
         $query->reorder()->orderByDesc('created_at');
