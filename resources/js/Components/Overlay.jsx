@@ -30,7 +30,7 @@ export default function Overlay({ title, open, setOpen, children }) {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <Dialog.Panel className="pointer-events-auto relative w-screen max-w-lg">
+                <Dialog.Panel className="pointer-events-auto relative w-[calc(100vw-2.5rem)] max-w-lg">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-500"

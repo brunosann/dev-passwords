@@ -29,7 +29,15 @@ export const List = ({ passwords }) => {
                 <p className="text-lg font-bold text-gray-800 truncate">
                   {password.name}
                 </p>
-                <p className="text-gray-600 text-md">
+                <p
+                  style={{
+                    overflow: "hidden",
+                    WebkitBoxOrient: "vertical",
+                    WebkitLineClamp: 3,
+                    textOverflow: "ellipsis",
+                  }}
+                  className="text-gray-600 text-md"
+                >
                   {(password.username &&
                     password.description &&
                     `${password.username} / ${password.description}`) ||

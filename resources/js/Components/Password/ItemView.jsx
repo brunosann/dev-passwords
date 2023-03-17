@@ -19,8 +19,18 @@ export const ItemView = ({ label, name }) => {
   return (
     <div>
       <p className="font-medium text-sm text-gray-700">{label}</p>
-      <div className="flex justify-between items-center">
-        <p className="text-gray-700">{name}</p>
+      <div className="flex justify-between items-center gap-1">
+        <p
+          style={{
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 3,
+            textOverflow: "ellipsis",
+          }}
+          className="text-gray-700"
+        >
+          {name}
+        </p>
         <button
           type="button"
           className="transition-colors text-gray-700 hover:text-gray-900"
