@@ -9,11 +9,12 @@ import { Pagination } from "./Pagination";
 import { View } from "./View";
 
 export const List = ({ passwords }) => {
-  const [id, setId] = useState(false);
+  const [idView, setIdView] = useState(null);
+  const [isOpenView, setIsOpenView] = useState(false);
 
   return (
     <>
-      <View id={id} setId={setId} />
+      <View id={idView} setOpen={setIsOpenView} open={isOpenView} />
 
       <section className="flex flex-col gap-4">
         {passwords.data?.map((password) => (
@@ -49,7 +50,10 @@ export const List = ({ passwords }) => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
               <SecondaryButton
                 className="gap-1"
-                onClick={() => setId(password.id)}
+                onClick={() => {
+                  setIsOpenView(true);
+                  setIdView(password.id);
+                }}
               >
                 <Eye className="w-5 h-5" />
                 <span className="hidden sm:block">Visualizar</span>

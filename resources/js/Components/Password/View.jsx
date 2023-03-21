@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { PropTypes } from "prop-types";
 import { useCallback, useEffect, useState } from "react";
 import route from "ziggy-js";
 
 import Overlay from "../Overlay";
 import { ItemView } from "./ItemView";
 
-export const View = ({ id, setId }) => {
+export const View = ({ id, open, setOpen }) => {
   const [password, setPassword] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -30,7 +31,7 @@ export const View = ({ id, setId }) => {
   }, [id]);
 
   return (
-    <Overlay title="Visualizar senha" open={!!id} setOpen={setId}>
+    <Overlay title="Visualizar senha" open={open} setOpen={setOpen}>
       <>
         {password && (
           <>
@@ -86,4 +87,10 @@ export const View = ({ id, setId }) => {
       </>
     </Overlay>
   );
+};
+
+View.propTypes = {
+  id: PropTypes.string,
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
 };
