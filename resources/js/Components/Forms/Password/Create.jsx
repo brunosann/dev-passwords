@@ -12,7 +12,7 @@ import TextInput from "@/Components/TextInput";
 
 import { CustomFields } from "./CustomFields";
 
-export const Password = () => {
+export const CreatePassword = () => {
   const [openOverlay, setOpenOverlay] = useState(false);
   const { data, setData, post, processing, errors, reset } = useForm({
     name: "",
@@ -26,6 +26,7 @@ export const Password = () => {
     return () => {
       reset();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openOverlay]);
 
   const handleOnChange = ({ target }) => {

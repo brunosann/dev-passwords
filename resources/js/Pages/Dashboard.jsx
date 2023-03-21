@@ -3,7 +3,7 @@ import { PropTypes } from "prop-types";
 import { useState } from "react";
 import route from "ziggy-js";
 
-import { Password as FormPassword } from "@/Components/Forms/Password";
+import { CreatePassword } from "@/Components/Forms/Password/Create";
 import { MagnifyingGlass } from "@/Components/Icons/MagnifyingGlass";
 import { List as ListPasswords } from "@/Components/Password/List";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -58,7 +58,7 @@ export default function Dashboard({ auth, errors, passwords }) {
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-4 sm:p-6 lg:p-8">
               <div className="flex justify-end">
-                <FormPassword />
+                <CreatePassword />
               </div>
               <section className="sm:flex sm:items-end sm:justify-between mb-4">
                 <div>
