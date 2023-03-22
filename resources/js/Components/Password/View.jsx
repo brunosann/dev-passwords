@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { PropTypes } from "prop-types";
 import { useCallback, useEffect, useState } from "react";
-import route from "ziggy-js";
+
+import { getPassword } from "@/Services/Password";
 
 import Overlay from "../Overlay";
 import { ItemView } from "./ItemView";
@@ -12,17 +13,18 @@ export const View = ({ id, open, setOpen }) => {
 
   useEffect(() => {
     if (!id) return;
-    getPassword();
-    return () => setPassword(null);
+    handleInit();
+    return () => {
+      setPassword(null);
+    };
   }, [id]);
 
-  const getPassword = useCallback(async () => {
+  const handleInit = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch(route("passwords.show", id));
-      if (!response.ok) throw response;
-      const responseJson = await response.json();
-      setPassword(responseJson);
+      const response = await getPassword(id);
+      if (response.ok && !response.ok) throw response;
+      setPassword(response);
     } catch (error) {
       console.log("error", error);
     } finally {
