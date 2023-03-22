@@ -1,6 +1,7 @@
 import { PropTypes } from "prop-types";
 import { useState } from "react";
 
+import { EditPassword } from "../Forms/Password/Edit";
 import { Eye } from "../Icons/Eye";
 import { LockClosed } from "../Icons/LockClosed";
 import { PencilSquare } from "../Icons/PencilSquare";
@@ -10,11 +11,14 @@ import { View } from "./View";
 
 export const List = ({ passwords }) => {
   const [idView, setIdView] = useState(null);
+  const [idEdit, setIdEdit] = useState(null);
   const [isOpenView, setIsOpenView] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState(false);
 
   return (
     <>
       <View id={idView} setOpen={setIsOpenView} open={isOpenView} />
+      <EditPassword id={idEdit} open={isOpenEdit} setOpen={setIsOpenEdit} />
 
       <section className="flex flex-col gap-4">
         {passwords.data?.map((password) => (
@@ -58,7 +62,13 @@ export const List = ({ passwords }) => {
                 <Eye className="w-5 h-5" />
                 <span className="hidden sm:block">Visualizar</span>
               </SecondaryButton>
-              <SecondaryButton className="gap-1">
+              <SecondaryButton
+                className="gap-1"
+                onClick={() => {
+                  setIsOpenEdit(true);
+                  setIdEdit(password.id);
+                }}
+              >
                 <PencilSquare className="w-5 h-5" />
                 <span className="hidden sm:block">Editar</span>
               </SecondaryButton>

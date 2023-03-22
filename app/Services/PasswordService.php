@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Http\Resources\PasswordResource;
-use App\Models\Password;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -34,11 +33,20 @@ class PasswordService
     Auth::user()->passwords()->create($data);
   }
 
-  public function findOne(string $id)
+  public function findOne(string $id, bool $isIncrement)
   {
     $password = Auth::user()->passwords()->findOrFail($id);
-    $password->increment('views');
+    if ($isIncrement) $password->increment('views');
 
     return new PasswordResource($password);
+  }
+
+  public function update(string $id, array $data)
+  {
+    $password = Auth::user()->passwords()
+      ->findOrFail($id)
+      ->update($data);
+
+    return $password;
   }
 }
