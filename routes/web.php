@@ -24,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('passwords/{password}', [PasswordController::class, 'show'])->name('passwords.show');
     Route::post('passwords', [PasswordController::class, 'store'])->name('passwords.store');
+    Route::put('passwords/{password}', [PasswordController::class, 'update'])->name('passwords.update');
 });
 
 require __DIR__ . '/auth.php';
