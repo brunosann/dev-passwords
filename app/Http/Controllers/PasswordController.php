@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePasswordRequest;
 use App\Services\PasswordService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PasswordController extends Controller
@@ -38,6 +39,13 @@ class PasswordController extends Controller
     public function update($id, StorePasswordRequest $request, PasswordService $passwordService)
     {
         $passwordService->update($id, $request->validated());
+
+        return redirect()->route('dashboard');
+    }
+
+    public function destroy($id)
+    {
+        Auth::user()->passwords()->where('id', $id)->delete();
 
         return redirect()->route('dashboard');
     }

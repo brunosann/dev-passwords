@@ -1,11 +1,15 @@
+import { Menu, Transition } from "@headlessui/react";
 import { PropTypes } from "prop-types";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 import { EditPassword } from "../Forms/Password/Edit";
+import { EllipsisVertical } from "../Icons/EllipsisVertical";
 import { Eye } from "../Icons/Eye";
 import { LockClosed } from "../Icons/LockClosed";
 import { PencilSquare } from "../Icons/PencilSquare";
+import { Trash } from "../Icons/Trash";
 import SecondaryButton from "../SecondaryButton";
+import { Delete } from "./Delete";
 import { Pagination } from "./Pagination";
 import { View } from "./View";
 
@@ -14,15 +18,30 @@ export const List = ({ passwords }) => {
   const [idEdit, setIdEdit] = useState(null);
   const [isOpenView, setIsOpenView] = useState(false);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
+  const [idDelete, setIdDelete] = useState(null);
+
+  const handleView = (id) => {
+    setIsOpenView(true);
+    setIdView(id);
+  };
+
+  const handleEdit = (id) => {
+    setIsOpenEdit(true);
+    setIdEdit(id);
+  };
+
+  const handleDelete = (id) => {
+    setIdDelete(id);
+  };
 
   return (
     <>
       <View id={idView} setOpen={setIsOpenView} open={isOpenView} />
       <EditPassword id={idEdit} open={isOpenEdit} setOpen={setIsOpenEdit} />
-
-      <section className="flex flex-col gap-4">
+      <Delete id={idDelete} setId={setIdDelete} />
+      <ul className="flex flex-col gap-4">
         {passwords.data?.map((password) => (
-          <div
+          <li
             key={password.id}
             className="flex sm:items-center sm:justify-between gap-2"
           >
@@ -51,31 +70,85 @@ export const List = ({ passwords }) => {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
-              <SecondaryButton
-                className="gap-1"
-                onClick={() => {
-                  setIsOpenView(true);
-                  setIdView(password.id);
-                }}
-              >
-                <Eye className="w-5 h-5" />
-                <span className="hidden sm:block">Visualizar</span>
-              </SecondaryButton>
-              <SecondaryButton
-                className="gap-1"
-                onClick={() => {
-                  setIsOpenEdit(true);
-                  setIdEdit(password.id);
-                }}
-              >
-                <PencilSquare className="w-5 h-5" />
-                <span className="hidden sm:block">Editar</span>
-              </SecondaryButton>
+            <div className="flex items-center">
+              <div className="hidden sm:flex gap-2">
+                <SecondaryButton
+                  className="gap-1"
+                  onClick={() => handleView(password.id)}
+                >
+                  <Eye className="w-5 h-5" />
+                </SecondaryButton>
+                <SecondaryButton
+                  className="gap-1"
+                  onClick={() => handleEdit(password.id)}
+                >
+                  <PencilSquare className="w-5 h-5" />
+                </SecondaryButton>
+                <SecondaryButton
+                  className="gap-1"
+                  onClick={() => handleDelete(password.id)}
+                >
+                  <Trash className="w-5 h-5" />
+                </SecondaryButton>
+              </div>
+              <div className="block sm:hidden">
+                <Menu as="div" className="relative inline-block text-left">
+                  <Menu.Button as="div">
+                    <SecondaryButton className="gap-1">
+                      <EllipsisVertical className="w-5 h-5" />
+                    </SecondaryButton>
+                  </Menu.Button>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 mt-1 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
+                      <Menu.Item>
+                        <div>
+                          <SecondaryButton
+                            className="gap-1 border-0 w-full"
+                            onClick={() => handleView(password.id)}
+                          >
+                            <Eye className="w-5 h-5" />
+                            <span>Visualizar</span>
+                          </SecondaryButton>
+                        </div>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <div>
+                          <SecondaryButton
+                            className="gap-1 border-0 w-full"
+                            onClick={() => handleEdit(password.id)}
+                          >
+                            <PencilSquare className="w-5 h-5" />
+                            <span>Editar</span>
+                          </SecondaryButton>
+                        </div>
+                      </Menu.Item>
+                      <Menu.Item>
+                        <div>
+                          <SecondaryButton
+                            className="gap-1 border-0 w-full"
+                            onClick={() => handleDelete(password.id)}
+                          >
+                            <Trash className="w-5 h-5" />
+                            <span>Deletar</span>
+                          </SecondaryButton>
+                        </div>
+                      </Menu.Item>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
             </div>
-          </div>
+          </li>
         ))}
-      </section>
+      </ul>
 
       <Pagination data={passwords} />
     </>
