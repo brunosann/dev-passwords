@@ -7,7 +7,7 @@ import { getPassword } from "@/Services/Password";
 import Overlay from "../Overlay";
 import { ItemView } from "./ItemView";
 
-export const View = ({ id, open, setOpen }) => {
+export const View = ({ id, open, setOpen, setId }) => {
   const [password, setPassword] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +33,14 @@ export const View = ({ id, open, setOpen }) => {
   }, [id]);
 
   return (
-    <Overlay title="Visualizar senha" open={open} setOpen={setOpen}>
+    <Overlay
+      title="Visualizar senha"
+      open={open}
+      setOpen={(state) => {
+        setOpen(state);
+        if (!state) setId(null);
+      }}
+    >
       <>
         {password && (
           <>
@@ -95,4 +102,5 @@ View.propTypes = {
   id: PropTypes.string,
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
+  setId: PropTypes.func.isRequired,
 };

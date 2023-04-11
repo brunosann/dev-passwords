@@ -36,7 +36,12 @@ export const List = ({ passwords }) => {
 
   return (
     <>
-      <View id={idView} setOpen={setIsOpenView} open={isOpenView} />
+      <View
+        id={idView}
+        setOpen={setIsOpenView}
+        open={isOpenView}
+        setId={setIdView}
+      />
       <EditPassword id={idEdit} open={isOpenEdit} setOpen={setIsOpenEdit} />
       <Delete id={idDelete} setId={setIdDelete} />
       <ul className="flex flex-col gap-4">
