@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Resources\PasswordResource;
+use App\Models\Password;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -48,5 +49,22 @@ class PasswordService
       ->update($data);
 
     return $password;
+  }
+
+  function changeEncryptionKey(string $oldKey, string $newKey)
+  {
+    $passwords = Auth::user()->passwords()
+      ->select('id', 'password')
+      ->get()
+      ->toArray();
+
+    $passwordEncryptService = new PasswordEncryptService;
+
+    collect($passwords)->each(function ($password) use ($passwordEncryptService, $oldKey, $newKey) {
+      $oldPassword = $passwordEncryptService->decrypt($password['password'], $oldKey);
+      $newPassword = $passwordEncryptService->encrypt($oldPassword, $newKey);
+
+      Password::where('id', $password['id'])->update(['password' => $newPassword]);
+    });
   }
 }

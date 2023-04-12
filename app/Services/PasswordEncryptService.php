@@ -9,25 +9,25 @@ use Illuminate\Support\Str;
 
 class PasswordEncryptService
 {
-  public function encrypt(string $value)
+  public function encrypt(string $value, ?string $encryptionKey = null)
   {
-    $key = $this->getEncryptionKey();
+    $key = $this->getEncryptionKey($encryptionKey);
     $newEncrypter = new Encrypter($key, config('app.cipher'));
     $encrypted = $newEncrypter->encrypt($value);
 
     return $encrypted;
   }
 
-  public function decrypt(string $value): string
+  public function decrypt(string $value, ?string $encryptionKey = null): string
   {
-    $key = $this->getEncryptionKey();
+    $key = $this->getEncryptionKey($encryptionKey);
     $newEncrypter = new Encrypter($key, config('app.cipher'));
     $decrypted = $newEncrypter->decrypt($value);
 
     return $decrypted;
   }
 
-  private function getEncryptionKey()
+  private function getEncryptionKey(?string $encryptionKey = null)
   {
     $encryptedPassword = session()->get('encryptedPassword');
 
@@ -39,7 +39,7 @@ class PasswordEncryptService
       return redirect('/');
     }
 
-    $decrypted = Crypt::decryptString($encryptedPassword);
+    $decrypted = $encryptionKey ?? Crypt::decryptString($encryptedPassword);
     $key = env('KEY_ENCRYPTER') . $decrypted;
 
     return $key;
