@@ -44,6 +44,10 @@ class PasswordResetLinkController extends Controller
             return back()->with('status', __($status));
         }
 
+        if ($status == Password::INVALID_USER) {
+            return back()->with('status', 'Enviamos seu link de redefinição de senha por e-mail!');
+        }
+
         throw ValidationException::withMessages([
             'email' => [trans($status)],
         ]);
