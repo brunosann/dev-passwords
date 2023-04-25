@@ -14,14 +14,16 @@ class PasswordService
   {
     $passwords = Auth::user()->passwords()
       ->select('id', 'name', 'username', 'description')
+      ->when($search, function (Builder $query, string $search) {
+        $query->where(function (Builder $query) use ($search) {
+          $query->where('name', 'like', "%$search%")
+            ->orWhere('description', 'like', "%$search%")
+            ->orWhere('username', 'like', "%$search%");
+        });
+      })
       ->orderByDesc('views')
       ->when($order && $order === 'recent', function (Builder $query) {
         $query->reorder()->orderByDesc('created_at');
-      })
-      ->when($search, function (Builder $query, string $search) {
-        $query->where('name', 'like', "%$search%")
-          ->orWhere('description', 'like', "%$search%")
-          ->orWhere('username', 'like', "%$search%");
       })
       ->paginate()
       ->appends(request()->query());
