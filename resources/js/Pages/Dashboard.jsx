@@ -55,7 +55,7 @@ export default function Dashboard({ auth, errors, passwords }) {
 
       <div className="py-8">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+          <div className="bg-white shadow-sm sm:rounded-lg">
             <div className="p-4 sm:p-6 lg:p-8">
               <div className="flex justify-end">
                 <CreatePassword />
