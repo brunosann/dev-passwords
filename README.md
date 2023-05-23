@@ -1,9 +1,10 @@
 # Sistema Gerenciador de Senhas
-
+- Quer testar ? [dev-passwords
+](https://senhas.devteixeira.com.br/)
 ### Andamento do Projeto:
 
--   [x] Desenvolvimento
--   [ ] Finalizado
+-   [ ] Desenvolvimento
+-   [x] Finalizado
 
 ## Requisitos
 
